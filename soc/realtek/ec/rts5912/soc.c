@@ -12,6 +12,7 @@
 #include "debug_swj.h"
 
 LOG_MODULE_REGISTER(soc, CONFIG_SOC_LOG_LEVEL);
+#define SWJ_NODE DT_NODELABEL(swj_port)
 
 #if defined(CONFIG_RTS5912_ON_ENTER_CPU_IDLE_HOOK)
 bool z_arm_on_enter_cpu_idle(void)
@@ -28,6 +29,7 @@ bool z_arm_on_enter_cpu_idle(void)
  */
 void soc_early_init_hook(void)
 {
+#if DT_NODE_HAS_STATUS_OKAY(SWJ_NODE)
 	int ret;
 
 	/* Apply device related preinit configuration */
@@ -35,4 +37,5 @@ void soc_early_init_hook(void)
 	if (ret < 0) {
 		LOG_ERR("SWJ init failed");
 	}
+#endif
 }

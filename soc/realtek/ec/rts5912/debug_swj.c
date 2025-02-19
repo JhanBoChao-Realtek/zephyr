@@ -12,6 +12,8 @@
 
 PINCTRL_DT_DEFINE(SWJ_NODE);
 
+#if DT_NODE_HAS_STATUS_OKAY(SWJ_NODE)
+
 const struct pinctrl_dev_config *swj_pcfg = PINCTRL_DT_DEV_CONFIG_GET(SWJ_NODE);
 
 int swj_connector_init(void)
@@ -25,3 +27,5 @@ int swj_connector_init(void)
 
 	return 0;
 }
+
+#endif
